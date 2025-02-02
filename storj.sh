@@ -16,4 +16,8 @@ for i in $(seq 1 $NUM_NODES); do
   echo "Created /data/disk$i"
 done
 
-echo "Disk setup complete."
+# Step 4: Pull the latest Storj node Docker image
+echo "Pulling the latest Storj node Docker image..."
+sudo docker pull storjlabs/storagenode:latest
+
+echo "Disk setup and Docker image pull complete."
