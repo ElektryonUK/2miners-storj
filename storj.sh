@@ -61,13 +61,13 @@ for i in $(seq 1 $NUM_NODES); do
   # Incremental port number, but start with 30000 for the first node
   PORT=$((30000 + (i - 1)))
 
-  # Incremental management port starting from 14000 for the first node
-  MANAGEMENT_PORT=$((14000 + (i - 1)))
+  # Incremental dashboard port starting from 14000 for the first node
+  DASHBOARD_PORT=$((14000 + (i - 1)))
 
-  echo "Running Storj node $i on port $PORT and management port $MANAGEMENT_PORT..."
+  echo "Running Storj node $i on port $PORT and dashboard port $DASHBOARD_PORT..."
 
   sudo docker run -d --restart unless-stopped --stop-timeout 300 \
-    -p $PORT:28967/tcp -p $PORT:28967/udp -p 127.0.0.1:$MANAGEMENT_PORT:14002 \
+    -p $PORT:28967/tcp -p $PORT:28967/udp -p 127.0.0.1:$DASHBOARD_PORT:14002 \
     -e WALLET="$WALLET" \
     -e EMAIL="$EMAIL" \
     -e ADDRESS="$ADDRESS" \
@@ -94,7 +94,7 @@ CONFIG_FILE="config.txt"
     echo "NODE$i_PATH=/home/$USER/disk$i/identity"
     echo "NODE$i_STORAGE=$DATA_PATH/disk$i"
     echo "NODE$i_PORT=$((30000 + (i - 1)))"
-    echo "NODE$i_MANAGEMENT_PORT=$((14000 + (i - 1)))"
+    echo "NODE$i_DASHBOARD_PORT=$((14000 + (i - 1)))"
   done
 } > $CONFIG_FILE
 
