@@ -43,8 +43,8 @@ read WALLET
 echo "Enter your Node Operator Email address:"
 read EMAIL
 
-echo "Enter the Node address (e.g., CHANGEME:30000):"
-read ADDRESS
+echo "Enter the Node address (e.g., NODEEXTERNALADDRESS:30000):"
+read NODEEXTERNALADDRESS
 
 echo "Enter the storage capacity (in TB) for each node:"
 read STORAGE
@@ -91,7 +91,7 @@ for i in $(seq 1 $NUM_NODES); do
     -p $PORT:28967/tcp -p $PORT:28967/udp -p 127.0.0.1:$DASHBOARD_PORT:14002 \
     -e WALLET="$WALLET" \
     -e EMAIL="$EMAIL" \
-    -e ADDRESS="$ADDRESS" \
+    -e ADDRESS="$NODEEXTERNALADDRESS:$PORT" \
     -e STORAGE="${STORAGE}TB" \
     --mount type=bind,source="/home/$USER/disk$i/identity",destination=/app/identity \
     --mount type=bind,source="$DATA_PATH/disk$i",destination=/app/config \
@@ -108,7 +108,7 @@ CONFIG_FILE="autostorj.conf"
   echo "DATA_PATH=$DATA_PATH"
   echo "WALLET=$WALLET"
   echo "EMAIL=$EMAIL"
-  echo "ADDRESS=$ADDRESS"
+  echo "NODEEXTERNALADDRESS=$NODEEXTERNALADDRESS"
   echo "STORAGE=$STORAGE"
   echo "USER=$USER"
   for i in $(seq 1 $NUM_NODES); do
