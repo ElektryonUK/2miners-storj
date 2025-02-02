@@ -16,11 +16,12 @@ Sufficient disk space and bandwidth for running multiple nodes.
 ### 1. Clone the Repository
 Clone this repository to your server:
 
-bash
+```bash
 Copy
 Edit
-git clone https://github.com/ElektryonUK/2miners-storj.git
+git clone https://github.com/ElektryonUK/2miners-storj.git 
 cd 2miners-storj
+```
 ### 2. Configure the Script
 
 ### 3. Run the Automation Script
