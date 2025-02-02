@@ -61,10 +61,13 @@ for i in $(seq 1 $NUM_NODES); do
   # Incremental port number, but start with 30000 for the first node
   PORT=$((30000 + (i - 1)))
 
-  echo "Running Storj node $i on port $PORT..."
+  # Incremental management port starting from 14000 for the first node
+  MANAGEMENT_PORT=$((14000 + (i - 1)))
+
+  echo "Running Storj node $i on port $PORT and management port $MANAGEMENT_PORT..."
 
   sudo docker run -d --restart unless-stopped --stop-timeout 300 \
-    -p $PORT:28967/tcp -p $PORT:28967/udp -p 127.0.0.1:14000:14002 \
+    -p $PORT:28967/tcp -p $PORT:28967/udp -p 127.0.0.1:$MANAGEMENT_PORT:14002 \
     -e WALLET="$WALLET" \
     -e EMAIL="$EMAIL" \
     -e ADDRESS="$ADDRESS" \
@@ -75,9 +78,9 @@ for i in $(seq 1 $NUM_NODES); do
 done
 
 # Step 10: Dump the configuration into a config file for future use
-echo "Saving the configuration to autostorj.conf..."
+echo "Saving the configuration to config.txt..."
 
-CONFIG_FILE="autostorj.conf"
+CONFIG_FILE="config.txt"
 
 {
   echo "NUM_NODES=$NUM_NODES"
@@ -91,6 +94,7 @@ CONFIG_FILE="autostorj.conf"
     echo "NODE$i_PATH=/home/$USER/disk$i/identity"
     echo "NODE$i_STORAGE=$DATA_PATH/disk$i"
     echo "NODE$i_PORT=$((30000 + (i - 1)))"
+    echo "NODE$i_MANAGEMENT_PORT=$((14000 + (i - 1)))"
   done
 } > $CONFIG_FILE
 
