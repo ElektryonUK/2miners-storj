@@ -74,4 +74,24 @@ for i in $(seq 1 $NUM_NODES); do
     --name storagenode$i storjlabs/storagenode:latest
 done
 
-echo "Disk setup, Docker image pull, and Storj node setup complete."
+# Step 10: Dump the configuration into a config file for future use
+echo "Saving the configuration to autostorj.conf..."
+
+CONFIG_FILE="autostorj.conf"
+
+{
+  echo "NUM_NODES=$NUM_NODES"
+  echo "DATA_PATH=$DATA_PATH"
+  echo "WALLET=$WALLET"
+  echo "EMAIL=$EMAIL"
+  echo "ADDRESS=$ADDRESS"
+  echo "STORAGE=$STORAGE"
+  echo "USER=$USER"
+  for i in $(seq 1 $NUM_NODES); do
+    echo "NODE$i_PATH=/home/$USER/disk$i/identity"
+    echo "NODE$i_STORAGE=$DATA_PATH/disk$i"
+    echo "NODE$i_PORT=$((30000 + (i - 1)))"
+  done
+} > $CONFIG_FILE
+
+echo "Configuration saved to $CONFIG_FILE"
