@@ -44,8 +44,8 @@ The `setup.sh` script automates the process of setting up and running multiple S
 ## Installation
 I. Clone this repository:
    ```
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
+   git clone https://github.com/ElektryonUK/autostorj.git
+   cd autostorj
    ```
 
 II. Make the script executable:
