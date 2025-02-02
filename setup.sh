@@ -40,3 +40,36 @@ else
   echo "There was an issue installing packages. Exiting..."
   exit 1
 fi
+
+# Step 3: Ask for input on the number of nodes
+echo "Enter the total number of nodes to be hosted on this machine:"
+read NUM_NODES
+
+# Step 4: Create directories for nodes
+echo "Creating directories for nodes..."
+
+# Create directories for ~/node1, ~/node2, ..., ~/node[N]
+for i in $(seq 1 $NUM_NODES); do
+  mkdir -p ~/node$i
+  mkdir -p /var/www/html$i
+done
+
+# Step 5: Download the required PHP files to /var/www/html
+echo "Downloading necessary PHP files..."
+
+cd /var/www/html
+sudo wget https://raw.githubusercontent.com/storjdashboard/storjdashboard/main/public/index.php
+sudo wget https://raw.githubusercontent.com/storjdashboard/storjdashboard/main/public/daily.php
+sudo wget https://raw.githubusercontent.com/storjdashboard/storjdashboard/main/public/pay.php
+sudo wget https://raw.githubusercontent.com/storjdashboard/storjdashboard/main/public/audit.php
+
+# Step 6: Copy the files to each of the /var/www/html[N] directories
+echo "Copying PHP files to each /var/www/html[N] directory..."
+for i in $(seq 1 $NUM_NODES); do
+  sudo cp /var/www/html/index.php /var/www/html$i/
+  sudo cp /var/www/html/daily.php /var/www/html$i/
+  sudo cp /var/www/html/pay.php /var/www/html$i/
+  sudo cp /var/www/html/audit.php /var/www/html$i/
+done
+
+echo "Setup complete."
