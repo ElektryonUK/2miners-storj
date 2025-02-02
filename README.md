@@ -17,8 +17,6 @@ Sufficient disk space and bandwidth for running multiple nodes.
 Clone this repository to your server:
 
 ```bash
-Copy
-Edit
 git clone https://github.com/ElektryonUK/2miners-storj.git 
 cd 2miners-storj
 ```
