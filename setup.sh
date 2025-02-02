@@ -99,9 +99,9 @@ for i in $(seq 1 $NUM_NODES); do
 done
 
 # Step 14: Dump the configuration into a config file for future use
-echo "Saving the configuration to config.txt..."
+echo "Saving the configuration to autostorj.conf..."
 
-CONFIG_FILE="config.txt"
+CONFIG_FILE="autostorj.conf"
 
 {
   echo "NUM_NODES=$NUM_NODES"
